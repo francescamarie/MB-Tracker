@@ -2,25 +2,28 @@
 <html lang="en">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <head>
-        <!-- <link rel="stylesheet" href="css/sign-in.css"> -->
-        <link rel="stylesheet" href="css/recents.css">
-    </head>  
+          <link rel="stylesheet" href="css/users-feed.css">
+    </head>   
 
     <body>
 
-        <!-- TODO: Highlight the link the page is on -->
         <div class="sidenav">
-            <h3>Movie and Book Tracker</h2>
-            <a href="recents.html">User's Feed</a>
+            <h3>Movie & Book</h3>
+            <h3>Tracker</h3>
+            <a href="recents.html" id="usersfeedbar">User's Feed</a>
             <a href="movies.html">Your Movies</a>
             <a href="books.html">Your Books</a>
-            <a id="settings" href="#">Settings</a>
+            <a href="#" id="settings">Settings</a>
         </div>
-
-        <div class="main">
-            <h2>Recents</h2>
-            <p>You don't have any entries. Add a book or movie...</p>
-            <p class="add__button"><input type="submit" name="add" value="Add"></p>
+        <div class ="main">
+            <header>
+                <h2>Recents</h2> 
+                <div class="no-entry">
+                    <p>You don't have any entries!</p>
+                    <p>Add a book or movie</p>
+                    <p class="add__button"><input type="submit" name="add" value="Add"></p>
+                </div>
+            </header>
         </div>
     </body>
 </html>
