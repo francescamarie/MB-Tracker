@@ -1,0 +1,76 @@
+html {
+    font-size: 62.5%;
+  }
+
+body {
+    font-size: 1.5rem;
+    font-family: "PT Sans", sans-serif;
+    color: #505260;
+    background-color: white;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 1em;
+}
+
+h2 {
+    text-align: center;
+    margin-top: 2.5em;
+}
+
+.container-signin {
+    text-align: center;
+}
+
+.signin-fieldset input {
+    font-family: "PT Sans", sans-serif;
+    font-size: 1.6rem;
+    position: relative;
+    width: 30%;
+    height: 30px;
+}
+
+.signin-fieldset input:focus {
+    border-color: #343642;
+    -webkit-box-shadow: 0 0 5px rgba(52, 54, 66, 0.1);
+    box-shadow: 0 0 5px rgba(52, 54, 66, 0.1);
+    outline: none;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    padding: 1em;
+    padding-top: 1em;
+}
+
+input[type=submit] {
+    padding: 16px 0;
+    border-radius: 20px;
+    width: 10%;
+    cursor: pointer;
+    background: #2f889a;
+    color: #FFF;
+    font-weight: bold;
+    border: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+  
+.forgot-message {
+    position: static;
+    width: 100%;
+    font-size: 1.4rem;
+}
+
+.container-signup-text{
+    font-size: 1.4rem;
+    padding: 2em;
+}
+  
+.forgot-message a, .signup-message a{
+    color: #505260;
+    text-decoration: underline;
+}
