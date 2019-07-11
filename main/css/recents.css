@@ -7,6 +7,7 @@ body {
   h3 {
     text-align: center;
     color: white;
+    margin-bottom: 3em;
   }
 
   .sidenav {
@@ -26,12 +27,13 @@ body {
   }
 
   .sidenav a {
-    padding: 6px 8px 6px 16px;
+    padding: 6px 8px 6px 8px;
     text-decoration: none;
     font-size: 20px;
     border-bottom: 3px solid white;
     color: white;
     display: block;
+    text-align: center;
   }
   
   .sidenav a:hover {
@@ -53,6 +55,10 @@ body {
   .no-entry {
     font-size: 20px;
     text-align: center;
+  }
+
+  h2 {
+    margin-inline-start: 1.5em;
   }
 
   input[type=submit] {
