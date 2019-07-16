@@ -10,6 +10,12 @@ body {
     margin-bottom: 3em;
   }
 
+  h4 {
+    text-align: center;
+    color: black;
+    margin-bottom: 3em;
+  }
+
   .sidenav {
     height: 100%;
     width: 160px;
@@ -75,4 +81,10 @@ body {
     appearance: none;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  .function-settings a {
+    margin-inline-start: 5em;
+    color: black;
+    font-size: 1.3rem;
   }

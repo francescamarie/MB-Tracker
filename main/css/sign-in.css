@@ -74,3 +74,19 @@ input[type=submit] {
     color: #505260;
     text-decoration: underline;
 }
+
+#signin-form input.error{
+    background: #f8dbdb;
+    border-color: #e77776;
+}
+
+#signin-form span.error{
+    color: #e46c6e;
+}
+
+#signin-form span{
+    margin-left: 50px;
+    color: #b1b1b1;
+    font-size: 11px;
+    font-style: italic;
+}

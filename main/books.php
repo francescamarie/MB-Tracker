@@ -22,16 +22,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
         <!-- TODO: Highlight the link the page is on -->
         <div class="sidenav">
             <h3>Movie & Book Tracker</h3>
-            <a href="recents.html" id="recents">User's Feed</a>
-            <a href="movies.html">Your Movies</a>
-            <a href="books.html">Your Books</a>
-            <a id="settings" href="#">Settings</a>
+            <h4>Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>!</h4>
+            <a href="recents.php" id="recents">User's Feed</a>
+            <a href="movies.php">Your Movies</a>
+            <a href="books.php" style="font-weight: bold; background-color:gray;">Your Books</a>
+            <a id="settings" href="settings.php">Settings</a>
         </div>
 
         <div class="main">
-            <h2>Movies</h2>
+            <h2>Books</h2>
             <div class="no-entry">
-                <p>You don't have any entries! Add a movie...</p>
+                <p>You don't have any entries! Add a book...</p>
                 <p class="add__button"><input type="submit" name="add" value="Add"></p>
             </div>
         </div>
