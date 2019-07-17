@@ -107,7 +107,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
                 <p class="forgot-message"><a href="#0">Forgot your password?</a></p>
         
-                <p class="signin__button"><input type="submit" name="login" value="Login"></p> 
+                <p class="signin__button"><input type="submit" name="login" value="LOGIN"></p> 
 
                 <div class="container-signup-text">
                     <p class="signup-question"><a>Don't have an account?</a></p>

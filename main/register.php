@@ -84,7 +84,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <!DOCTYPE html>
 <html lang="en">
     <head>
-          <link rel="stylesheet" href="css/sign-in.css">
+        <!-- use bootstap and sign-in.css to style page -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+        <link rel="stylesheet" href="css/sign-in.css">
     </head>   
 
     <body>
