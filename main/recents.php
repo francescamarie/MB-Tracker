@@ -112,8 +112,9 @@ mysqli_close($link);
             <div class="no-entry">
                 <p>You don't have any entries! Add a book or movie...</p>
                 <!-- <p class="add__button"><input type="submit" name="add" value="Add"></p> -->
-                <p class="btn btn-add" id="add-entry-btn" onclick="addentry()">Add Entry</p>
-            </div>
+                <p class="btn btn-add" id="add-entry-btn" onclick="addentry()"><input type="submit" name="add" value="Add Entry"></p>
+<!--                 <p class="add__button"><input type="submit" name="add" value="Add"></p>
+ -->            </div>
         </header>
     </div>
 
