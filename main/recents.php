@@ -1,55 +1,205 @@
 <?php
-// initializes session
+
+// Initialize the session
 session_start();
- 
-// if user is not logged in, redirect to sign-in page
+
+// Check if the user is logged in, if not then redirect him to login page
 if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     header("location: sign-in.php");
     exit;
 }
+
+// Include config file
+require_once "config.php";
+
+// define variables and set to empty values
+$titleErr = $yearErr = $authorErr = $rateErr = $reviewErr = "";
+$title = $year_id = $author = $rate = $review = "";
+
+// Processing form data when form is submitted
+if($_SERVER["REQUEST_METHOD"] == "POST") {
+
+     // Validate title
+   if(empty(trim($_POST["title"]))){
+    $titleErr = "Please enter a title.";
+} else{
+    $title = trim($_POST["title"]);
+}
+
+    // Validate year
+if(empty(trim($_POST["year_id"]))){
+    $yearErr = "Please enter a year.";
+} else{
+    $year_id = trim($_POST["year_id"]);
+}
+
+    // Validate author
+if(empty(trim($_POST["author"]))){
+    $authorErr = "Please enter an author.";
+} else{
+    $author = trim($_POST["author"]);
+}
+
+    // Validate rate
+if(empty(trim($_POST["rate"]))){
+    $rateErr = "Please enter a rating.";
+} else{
+    $rate = trim($_POST["rate"]);
+}
+
+    // Validate rate
+if(empty(trim($_POST["review"]))){
+    $reviewErr = "Please enter a review.";
+} else{
+    $review = trim($_POST["review"]);
+}
+
+    // Check input errors before inserting in database
+if(empty($titleErr) && empty($yearErr) && empty($authorErr) && empty($rateErr) && empty($reviewErr)){
+
+        // Prepare an insert statement
+    $sql = "INSERT INTO `Entries` (`Name`, `Year_ID`, `Author`, `Rating`, `Review`) VALUES (?, ?, ?, ?, ?)";
+
+    if($stmt = mysqli_prepare($link, $sql)){
+            // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "sisis", $param_title, $param_year, $param_author, $param_rate, $param_review);
+
+            // Set parameters
+        $param_title = $title;
+        $param_year = $year_id;
+        $param_author = $author;
+        $param_rate = $rate;
+        $param_review = $review;
+
+            // Attempt to execute the prepared statement
+        if(mysqli_stmt_execute($stmt)){
+                // Redirect to login page
+            echo "it worked!!!";
+        } else{
+            echo "Something went wrong. Please try again later.";
+        }
+        mysqli_stmt_close($stmt);
+    } else {
+        echo "Something's wrong with the query: " . mysqli_error($link);
+    }
+}
+    // Close connection
+mysqli_close($link);
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <head>
-          <link rel="stylesheet" href="css/recents.css">
-    </head>   
+<meta charset="UTF-8">
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+  <link rel="stylesheet" href="css/recents.css">
+  <style type="text/css">
+        body{ font: 14px sans-serif; text-align: center; }
+    </style>
+</head>   
 
-    <body>
+<body>
+    <div class="sidenav">
+        <h3>Movie & Book Tracker</h3>
+        <h4>Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>!</h4>
+        <a href="recents.php" id="recents" style="font-weight: bold; background-color:gray;">User's Feed</a>
+        <a href="movies.php">Your Movies</a>
+        <a href="books.php">Your Books</a>
+        <a href="settings.php" id="settings">Settings</a>
+    </div>
+    <div class ="main">
+        <header>
+            <h2>Recents</h2> 
+            <div class="no-entry">
+                <p>You don't have any entries! Add a book or movie...</p>
+                <!-- <p class="add__button"><input type="submit" name="add" value="Add"></p> -->
+                <p class="btn btn-add" id="add-entry-btn" onclick="addentry()">Add Entry</p>
+            </div>
+        </header>
+    </div>
 
-        <div class="sidenav">
-            <h3>Movie & Book Tracker</h3>
-            <h4>Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>!</h4>
-            <a href="recents.php" id="recents" style="font-weight: bold; background-color:gray;">User's Feed</a>
-            <a href="movies.php">Your Movies</a>
-            <a href="books.php">Your Books</a>
-            <a href="settings.php" id="settings">Settings</a>
+    <div id="add-entry-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span style="float: right; margin: 15px;" class="close">&times;</span>
+                <h2>Add Entry</h2>
+            </div>
+
+            <div class="modal-body">
+                <form id="movie_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
+
+                    <div id="title-input" class="form-group <?php echo (!empty($titleErr)) ? 'has-error' : ''; ?>">
+                        <label for="title">Title: </label>
+                        <input type="text" id="title" name="title" placeholder="Title" value="<?php echo $title; ?>">
+                        <span class="help-block"><?php echo $titleErr; ?></span>
+                    </div>
+
+                    <div id="year-input" lass="form-group <?php echo (!empty($yearErr)) ? 'has-error' : ''; ?>">
+                        <label for="year_id">Year: </label>
+                        <input type="number" id="year_id" name="year_id" min="1000" max="2030" value="<?php echo $year_id; ?>">
+                        <span class="help-block"><?php echo $yearErr; ?></span>
+                    </div>
+
+                    <p>If it's a book, add an author...</p>
+                    <div id="author-input" lass="form-group <?php echo (!empty($authorErr)) ? 'has-error' : ''; ?>">
+                        <label for="author">Author: </label>
+                        <input type="text" id="author" name="author" value="<?php echo $author; ?>">
+                        <span class="help-block"><?php echo $authorErr; ?></span>
+                    </div>
+
+                    <div id="rating-input">
+                        <label for="rate">Rating: </label>
+                        <div class="rate" id="rate">
+                            <input type="radio" id="star5" name="rate" <?php if (isset($rate) && $rate=="5") echo "checked";?> value="5" />
+                            <label for="star5" title="text">5 stars</label>
+                            <input type="radio" id="star4" name="rate" <?php if (isset($rate) && $rate=="4") echo "checked";?> value="4" />
+                            <label for="star4" title="text">4 stars</label>
+                            <input type="radio" id="star3" name="rate" <?php if (isset($rate) && $rate=="3") echo "checked";?> value="3" />
+                            <label for="star3" title="text">3 stars</label>
+                            <input type="radio" id="star2" name="rate" <?php if (isset($rate) && $rate=="2") echo "checked";?> value="2" />
+                            <label for="star2" title="text">2 stars</label>
+                            <input type="radio" id="star1" name="rate" <?php if (isset($rate) && $rate=="1") echo "checked";?> value="1" />
+                            <label for="star1" title="text">1 star</label>
+
+                            <span class="help-block"><?php echo $rateErr; ?></span>
+                        </div>
+                    </div>
+
+                    <div id="review-input">
+                        <label for="review">Review: </label>
+                        <textarea type="text" id="review" name="review" placeholder="Write a review..."><?php echo $review;?></textarea>
+                        <span class="help-block"><?php echo $reviewErr; ?></span>
+                    </div>
+
+
+
+                    <div class="submit">
+                        <input class="submit_btn" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class ="main">
-            <header>
-                <h2>Recents</h2> 
-                <div class="no-entry">
-                    <p>You don't have any entries! Add a book or movie...</p>
-                    <p class="add__button"><input type="submit" name="add" value="Add"></p>
-                </div>
-            </header>
-        </div>
+    </div>
 
-        <script>
-            function openCity(evt, cityName) {
-                var i, x, tablinks;
-                x = document.getElementsByClassName("city");
-                for (i = 0; i < x.length; i++) {
-                    x[i].style.display = "none";
-                }
-                tablinks = document.getElementsByClassName("tablink");
-                for (i = 0; i < x.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" w3-red", ""); 
-                }
-                document.getElementById(cityName).style.display = "block";
-                evt.currentTarget.className += " w3-red";
-            }
-</script>
-    </body>
+</div>
+
+<?php
+// printing inputted data
+    echo "<h2 style='text-align:center;'>input:</h2>";
+    echo "<p style='text-align:center; '>".$title."</p>";
+    echo "<br>";
+    echo "<p style='text-align:center;'>".$year_id."</p>";
+    echo "<br>";
+    echo "<p style='text-align:center;'>".$author."</p>";
+    echo "<br>";
+    echo "<p style='text-align:center;'>".$rate."</p>";
+    echo "<br>";
+    echo "<p style='text-align:center;'>".$review."</p>";
+    echo "<br>";
+?>  
+
+<script type="text/javascript" src="js/add-entry.js"></script>
+</body>
 </html>

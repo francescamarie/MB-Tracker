@@ -1,90 +1,169 @@
-
+html {
+  font-size: 100%;
+}
 
 body {
-    font-family: "PT Sans", sans-serif;
-  }
-  
-  h3 {
-    text-align: center;
-    color: white;
-    margin-bottom: 3em;
-  }
+  font-size: 1.6rem;
+  font-family: "PT Sans", sans-serif;
+  color: #505260;
+  background-color: white;
+}
 
-  h4 {
-    text-align: center;
-    color: black;
-    margin-bottom: 3em;
-  }
+h3 {
+  text-align: center;
+  color: white;
+  margin-bottom: 3em;
+}
 
-  .sidenav {
-    height: 100%;
-    width: 160px;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: #505260;
-    overflow-x: hidden;
-    padding-top: 20px;
-  }
-  
-  #recents {
-    border-top: 3px solid white;
-  }
+h4 {
+  text-align: center;
+  color: black;
+  margin-bottom: 3em;
+}
 
-  .sidenav a {
-    padding: 6px 8px 6px 8px;
-    text-decoration: none;
-    font-size: 20px;
-    border-bottom: 3px solid white;
-    color: white;
-    display: block;
-    text-align: center;
-  }
-  
-  .sidenav a:hover {
-    color: #2f889a;
-  }
+p {
+  margin: 0;
+}
 
-  #settings {
-    position: absolute;
-    bottom: 30px;
-    right: 10px;
-  }
-  
-  .main {
-    margin-left: 160px; 
-    font-size: 28px; 
-    padding: 0px 10px;
-  }
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #505260;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
 
-  .no-entry {
-    font-size: 20px;
-    text-align: center;
-  }
+#recents {
+  border-top: 3px solid white;
+}
 
-  h2 {
-    margin-inline-start: 1.5em;
-  }
+.sidenav a {
+  padding: 6px 8px 6px 8px;
+  text-decoration: none;
+  font-size: 20px;
+  border-bottom: 3px solid white;
+  color: white;
+  display: block;
+  text-align: center;
+}
 
-  input[type=submit] {
-    padding: 16px 0;
-    border-radius: 20px;
-    width: 10%;
-    cursor: pointer;
-    background: #2f889a;
-    color: #FFF;
-    font-weight: bold;
-    border: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+.sidenav a:hover {
+  color: #2f889a;
+}
 
-  .function-settings a {
-    margin-inline-start: 5em;
-    color: black;
-    font-size: 1.3rem;
-  }
+#settings {
+  position: absolute;
+  bottom: 30px;
+  right: 10px;
+}
+
+.main {
+  margin-left: 160px; 
+  font-size: 28px; 
+  padding: 0px 10px;
+}
+
+.no-entry {
+  font-size: 20px;
+  text-align: center;
+}
+
+h2 {
+  margin-inline-start: 1.5em;
+}
+
+input[type=submit] {
+  padding: 16px 0;
+  border-radius: 20px;
+  width: 10%;
+  cursor: pointer;
+  background: #2f889a;
+  color: #FFF;
+  font-weight: bold;
+  border: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.function-settings a {
+  margin-inline-start: 5em;
+  color: black;
+  font-size: 1.3rem;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid #888;
+  width: 40%;
+  position: relative;
+  background-color: #fefefe;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+/* 5 Star Rating CSS */
+.rate {
+  float: none;
+  width: 70%;
+  height: 46px;
+  padding: 0 0px;
+}
+.rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+/* 5 Star Rating CSS */ 
+

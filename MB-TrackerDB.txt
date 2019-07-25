@@ -4,3 +4,12 @@ CREATE TABLE users (
     password VARCHAR(255) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE Entries (
+	id INT NOT NULL AUTO_INCREMENT,
+	Name VARCHAR(225) NOT NULL,
+	Year_ID INT(11),
+	Rating INT (11),
+    	Review VARCHAR (255),
+	PRIMARY KEY(Movie_ID)
+);
