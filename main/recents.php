@@ -93,11 +93,8 @@ mysqli_close($link);
 <html lang="en">
 <meta charset="UTF-8">
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
-  <link rel="stylesheet" href="css/recents.css">
-  <style type="text/css">
-        body{ font: 14px sans-serif; text-align: center; }
-    </style>
+    <link rel="stylesheet" href="css/recents.css">
+
 </head>   
 
 <body>
