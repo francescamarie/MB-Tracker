@@ -86,7 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             
     }
     // Close connection
-    mysqli_close($link);
+    // mysqli_close($link);
 }
 ?>
 
@@ -103,16 +103,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3>Movie & Book Tracker</h3>
         <h4>Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>!</h4>
         <a href="recents.php" id="recents" style="font-weight: bold; background-color:gray;">User's Feed</a>
-        <a href="movies.php">Your Movies</a>
-        <a href="books.php">Your Books</a>
+        <!-- <a href="movies.php">Your Movies</a>
+        <a href="books.php">Your Books</a> -->
         <a href="logout.php" id="settings">Sign Out</a>
     </div>
     <div class ="main">
         <header>
             <h2>Recents</h2> 
             <div class="no-entry">
-                <p>You don't have any entries! Add a book or movie...</p>
-                <!-- <p class="add__button"><input type="submit" name="add" value="Add"></p> -->
+<!--                 <p>You don't have any entries! Add a book or movie...</p>
+ -->                <!-- <p class="add__button"><input type="submit" name="add" value="Add"></p> -->
                 <p class="btn btn-add" id="add-entry-btn" onclick="addentry()"><input type="submit" name="add" value="Add Entry"></p>
 <!--                 <p class="add__button"><input type="submit" name="add" value="Add"></p>
  -->            </div>
@@ -122,7 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="add-entry-modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <span style="float: right; margin: 15px;" class="close">&times;</span>
+                <span style="float: right; margin: 15px;" class="add-close">&times;</span>
                 <h2>Add Entry</h2>
             </div>
 
@@ -135,14 +135,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <span class="help-block"><?php echo $titleErr; ?></span>
                     </div>
 
-                    <div id="year-input" lass="form-group <?php echo (!empty($yearErr)) ? 'has-error' : ''; ?>">
+                    <div id="year-input" class="form-group <?php echo (!empty($yearErr)) ? 'has-error' : ''; ?>">
                         <label for="year_id">Year: </label>
                         <input type="number" id="year_id" name="year_id" min="1000" max="2030" value="<?php echo $year_id; ?>">
                         <span class="help-block"><?php echo $yearErr; ?></span>
                     </div>
 
                     <p>If it's a book, add an author...</p>
-                    <div id="author-input" lass="form-group <?php echo (!empty($authorErr)) ? 'has-error' : ''; ?>">
+                    <div id="author-input" class="form-group <?php echo (!empty($authorErr)) ? 'has-error' : ''; ?>">
                         <label for="author">Author: </label>
                         <input type="text" id="author" name="author" value="<?php echo $author; ?>">
                         <span class="help-block"><?php echo $authorErr; ?></span>
@@ -182,23 +182,97 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-</div>
+      <div id="view-entry-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span style="float: right; margin: 15px;" class="view-close">&times;</span>
+                <h2>View Entry</h2>
+            </div>
 
-<?php
-// printing inputted data
-    echo "<h2 style='text-align:center;'>input:</h2>";
-    echo "<p style='text-align:center; '>".$title."</p>";
-    echo "<br>";
-    echo "<p style='text-align:center;'>".$year_id."</p>";
-    echo "<br>";
-    echo "<p style='text-align:center;'>".$author."</p>";
-    echo "<br>";
-    echo "<p style='text-align:center;'>".$rate."</p>";
-    echo "<br>";
-    echo "<p style='text-align:center;'>".$review."</p>";
-    echo "<br>";
-?>   
+            <div class="modal-body">
+                    <div id="title-input">
+                        <label for="title">Title: </label>
+<!--                         <input type="text" id="title" name="title" placeholder="Title" value="<?php echo $title; ?>">
+ -->                        <?php
+                                
+                                echo $title;
+                            ?>
+                    </div>
+
+                    <div id="year-input" >
+                        <label for="year_id">Year: </label>
+                        <?php
+                                
+                                echo $year_id;
+                            ?>
+                        
+                    </div>
+
+                    <p>If it's a book, add an author...</p>
+                    <div id="author-input">
+                        <label for="author">Author: </label>
+                        <?php
+                                
+                                echo $author;
+                            ?>
+                        
+                    </div>
+
+                    <div id="rating-input">
+                        <label for="rate">Rating: </label>
+                        
+                            <?php
+                                
+                                echo $rate;
+                            ?>
+                            
+                        
+                    </div>
+
+                    <div id="review-input">
+                        <label for="review">Review: </label>
+                        <?php
+                                
+                                echo $review;
+                            ?>
+                    </div>
+
+
+
+                    <!-- <div class="submit">
+                        <input class="submit_btn" type="submit" value="Submit">
+                    </div> -->
+                
+            </div>
+        </div>
+    </div>
+
+    <?php
+    // printing image and title data
+
+    $sql = "SELECT Name FROM Entries";
+    $result = $link->query($sql);
+
+    if ($result->num_rows > 0) {
+    //output data of each row
+        while($row = $result->fetch_assoc()) {
+            echo "<table align='center';>
+                    <tr>
+                        <td><img src='img/script.png'/></td>
+                    </tr>
+                    <tr>
+                        <td><p id='view-entry-btn' onclick='viewentry()' style='text-align:center;'>Name: ".$row["Name"]."</p></td>
+                    </tr>
+                 </table>";
+        // echo "Name: " . $row["Name"];
+        }
+    } else {
+        echo "0 results";
+    }
+    $link->close();
+    ?>  
 
 <script type="text/javascript" src="js/add-entry.js"></script>
+<script type="text/javascript" src="js/view-entry.js"></script>
 </body>
 </html>

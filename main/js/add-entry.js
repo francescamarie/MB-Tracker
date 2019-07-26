@@ -5,7 +5,7 @@
 var btn = document.getElementById("add-entry-btn");
 
 // Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var add_span = document.getElementsByClassName("add-close")[0];
 
 // When the user clicks the button, open the modal 
 function addentry() {
@@ -13,7 +13,7 @@ function addentry() {
 }
 
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+add_span.onclick = function() {
     modal.style.display = "none";
 }
 
