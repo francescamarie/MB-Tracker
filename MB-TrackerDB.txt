@@ -9,7 +9,8 @@ CREATE TABLE Entries (
 	id INT NOT NULL AUTO_INCREMENT,
 	Name VARCHAR(225) NOT NULL,
 	Year_ID INT(11),
+	Author VARCHAR(255),
 	Rating INT (11),
     	Review VARCHAR (255),
-	PRIMARY KEY(Movie_ID)
+	PRIMARY KEY(id)
 );

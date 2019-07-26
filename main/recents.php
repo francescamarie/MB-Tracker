@@ -21,72 +21,73 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
      // Validate title
    if(empty(trim($_POST["title"]))){
-    $titleErr = "Please enter a title.";
-} else{
-    $title = trim($_POST["title"]);
-}
+        $titleErr = "Please enter a title.";
+    } else{
+        $title = trim($_POST["title"]);
+    }
 
     // Validate year
-if(empty(trim($_POST["year_id"]))){
-    $yearErr = "Please enter a year.";
-} else{
-    $year_id = trim($_POST["year_id"]);
-}
+    if(empty(trim($_POST["year_id"]))){
+        $yearErr = "Please enter a year.";
+    } else{
+        $year_id = trim($_POST["year_id"]);
+    }
 
     // Validate author
-if(empty(trim($_POST["author"]))){
-    $authorErr = "Please enter an author.";
-} else{
-    $author = trim($_POST["author"]);
-}
+    if(empty(trim($_POST["author"]))){
+        $authorErr = "Please enter an author.";
+    } else{
+        $author = trim($_POST["author"]);
+    }
 
     // Validate rate
-if(empty(trim($_POST["rate"]))){
-    $rateErr = "Please enter a rating.";
-} else{
-    $rate = trim($_POST["rate"]);
-}
+    if(empty(trim($_POST["rate"]))){
+        $rateErr = "Please enter a rating.";
+    } else{
+        $rate = trim($_POST["rate"]);
+    }
 
-    // Validate rate
-if(empty(trim($_POST["review"]))){
-    $reviewErr = "Please enter a review.";
-} else{
-    $review = trim($_POST["review"]);
-}
+    // Validate review
+    if(empty(trim($_POST["review"]))){
+        $reviewErr = "Please enter a review.";
+    } else{
+        $review = trim($_POST["review"]);
+    }
 
     // Check input errors before inserting in database
-if(empty($titleErr) && empty($yearErr) && empty($authorErr) && empty($rateErr) && empty($reviewErr)){
+    if(empty($titleErr) && empty($yearErr) && empty($authorErr) && empty($rateErr) && empty($reviewErr)) {
 
         // Prepare an insert statement
-    $sql = "INSERT INTO `Entries` (`Name`, `Year_ID`, `Author`, `Rating`, `Review`) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO `Entries` (`Name`, `Year_ID`, `Author`, `Rating`, `Review`) VALUES (?, ?, ?, ?, ?)";
+        $stmt = mysqli_prepare($link, $sql);
 
-    if($stmt = mysqli_prepare($link, $sql)){
+        if($stmt = mysqli_prepare($link, $sql)){
+
             // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "sisis", $param_title, $param_year, $param_author, $param_rate, $param_review);
+            mysqli_stmt_bind_param($stmt, "sisis", $param_title, $param_year, $param_author, $param_rate, $param_review);
 
             // Set parameters
-        $param_title = $title;
-        $param_year = $year_id;
-        $param_author = $author;
-        $param_rate = $rate;
-        $param_review = $review;
+            $param_title = $title;
+            $param_year = $year_id;
+            $param_author = $author;
+            $param_rate = $rate;
+            $param_review = $review;
 
             // Attempt to execute the prepared statement
-        if(mysqli_stmt_execute($stmt)){
-                // Redirect to login page
-            echo "it worked!!!";
-        } else{
-            echo "Something went wrong. Please try again later.";
+            if(mysqli_stmt_execute($stmt)){
+                // WORKS
+                echo "it worked!!!";
+            } else{
+                echo "Something went wrong. Please try again later.";
+            }
         }
+        // Close statement
         mysqli_stmt_close($stmt);
-    } else {
-        echo "Something's wrong with the query: " . mysqli_error($link);
+            
     }
-}
     // Close connection
-mysqli_close($link);
+    mysqli_close($link);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -104,7 +105,7 @@ mysqli_close($link);
         <a href="recents.php" id="recents" style="font-weight: bold; background-color:gray;">User's Feed</a>
         <a href="movies.php">Your Movies</a>
         <a href="books.php">Your Books</a>
-        <a href="settings.php" id="settings">Settings</a>
+        <a href="logout.php" id="settings">Sign Out</a>
     </div>
     <div class ="main">
         <header>
@@ -196,7 +197,7 @@ mysqli_close($link);
     echo "<br>";
     echo "<p style='text-align:center;'>".$review."</p>";
     echo "<br>";
-?>  
+?>   
 
 <script type="text/javascript" src="js/add-entry.js"></script>
 </body>
