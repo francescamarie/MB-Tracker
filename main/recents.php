@@ -261,7 +261,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td><img src='img/script.png'/></td>
                     </tr>
                     <tr>
-                        <td><p id='view-entry-btn' onclick='viewentry()' style='text-align:center;'>Name: ".$row["Name"]."</p></td>
+                        <td><p id='view-entry-btn' onclick='viewentry()' style='text-align:center;'>Title: ".$row["Name"]."</p></td>
                     </tr>
                  </table>";
         // echo "Name: " . $row["Name"];
