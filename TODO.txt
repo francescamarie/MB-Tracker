@@ -1,0 +1,2 @@
+- sessions to work — save each entries for each user
+- UI needs a lot of work

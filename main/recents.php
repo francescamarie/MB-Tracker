@@ -13,8 +13,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 require_once "config.php";
 
 // define variables and set to empty values
-$titleErr = $yearErr = $authorErr = $rateErr = $reviewErr = "";
-$title = $year_id = $author = $rate = $review = "";
+$titleErr = $yearErr = $authorErr = $rateErr = $reviewErr = $typeErr = "";
+$title = $year_id = $author = $rate = $review = $type = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -54,17 +54,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $review = trim($_POST["review"]);
     }
 
+    // Validate year
+    if(empty(trim($_POST["type"]))){
+        $typeErr = "Please enter a type.";
+    } else{
+        $type = trim($_POST["type"]);
+    }
+
     // Check input errors before inserting in database
-    if(empty($titleErr) && empty($yearErr) && empty($authorErr) && empty($rateErr) && empty($reviewErr)) {
+    if(empty($titleErr) && empty($yearErr) && empty($authorErr) && empty($rateErr) && empty($reviewErr) && empty($typeErr)) {
 
         // Prepare an insert statement
-        $sql = "INSERT INTO `Entries` (`Name`, `Year_ID`, `Author`, `Rating`, `Review`) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO `Entries` (`Name`, `Year_ID`, `Author`, `Rating`, `Review`, `Type`) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = mysqli_prepare($link, $sql);
 
         if($stmt = mysqli_prepare($link, $sql)){
 
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sisis", $param_title, $param_year, $param_author, $param_rate, $param_review);
+            mysqli_stmt_bind_param($stmt, "sisiss", $param_title, $param_year, $param_author, $param_rate, $param_review, $param_type);
 
             // Set parameters
             $param_title = $title;
@@ -72,6 +79,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $param_author = $author;
             $param_rate = $rate;
             $param_review = $review;
+            $param_type = $type;
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -103,19 +111,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3>Movie & Book Tracker</h3>
         <h4>Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>!</h4>
         <a href="recents.php" id="recents" style="font-weight: bold; background-color:gray;">User's Feed</a>
-        <!-- <a href="movies.php">Your Movies</a>
-        <a href="books.php">Your Books</a> -->
+        <a href="movies.php">Your Movies</a>
+        <a href="books.php">Your Books</a>
         <a href="logout.php" id="settings">Sign Out</a>
     </div>
     <div class ="main">
         <header>
             <h2>Recents</h2> 
             <div class="no-entry">
-<!--                 <p>You don't have any entries! Add a book or movie...</p>
- -->                <!-- <p class="add__button"><input type="submit" name="add" value="Add"></p> -->
                 <p class="btn btn-add" id="add-entry-btn" onclick="addentry()"><input type="submit" name="add" value="Add Entry"></p>
-<!--                 <p class="add__button"><input type="submit" name="add" value="Add"></p>
- -->            </div>
+          </div>
         </header>
     </div>
 
@@ -129,6 +134,16 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="modal-body">
                 <form id="movie_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
 
+                    <div id="type-input" style="text-align: center;">
+                        <label for="book">Book</label>
+                        <input type="radio" id="book" name="type"  <?php if (isset($type) && $rate=="Book") echo "checked";?> value="Book"/>
+                     
+                        <label for="movie">Movie</label>
+                        <input type="radio" id="movie" name="type" <?php if (isset($type) && $rate=="Movie") echo "checked";?> value="Movie"/>
+
+                        <span class="help-block"><?php echo $typeErr; ?></span>
+                    </div>
+
                     <div id="title-input" class="form-group <?php echo (!empty($titleErr)) ? 'has-error' : ''; ?>">
                         <label for="title">Title: </label>
                         <input type="text" id="title" name="title" placeholder="Title" value="<?php echo $title; ?>">
@@ -137,14 +152,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     <div id="year-input" class="form-group <?php echo (!empty($yearErr)) ? 'has-error' : ''; ?>">
                         <label for="year_id">Year: </label>
-                        <input type="number" id="year_id" name="year_id" min="1000" max="2030" value="<?php echo $year_id; ?>">
+                        <input type="number" id="year_id" name="year_id" min="1888" max="2030" value="<?php echo $year_id; ?>">
                         <span class="help-block"><?php echo $yearErr; ?></span>
                     </div>
 
-                    <p>If it's a book, add an author...</p>
+                    <p>If it's a movie, put N/A...</p>
                     <div id="author-input" class="form-group <?php echo (!empty($authorErr)) ? 'has-error' : ''; ?>">
                         <label for="author">Author: </label>
-                        <input type="text" id="author" name="author" value="<?php echo $author; ?>">
+                        <input type="text" id="author" name="author" placeholder="ex. N/A" value="<?php echo $author; ?>">
                         <span class="help-block"><?php echo $authorErr; ?></span>
                     </div>
 
@@ -172,8 +187,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <span class="help-block"><?php echo $reviewErr; ?></span>
                     </div>
 
-
-
                     <div class="submit">
                         <input class="submit_btn" type="submit" value="Submit">
                     </div>
@@ -182,97 +195,40 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
-      <div id="view-entry-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span style="float: right; margin: 15px;" class="view-close">&times;</span>
-                <h2>View Entry</h2>
-            </div>
-
-            <div class="modal-body">
-                    <div id="title-input">
-                        <label for="title">Title: </label>
-<!--                         <input type="text" id="title" name="title" placeholder="Title" value="<?php echo $title; ?>">
- -->                        <?php
-                                
-                                echo $title;
-                            ?>
-                    </div>
-
-                    <div id="year-input" >
-                        <label for="year_id">Year: </label>
-                        <?php
-                                
-                                echo $year_id;
-                            ?>
-                        
-                    </div>
-
-                    <p>If it's a book, add an author...</p>
-                    <div id="author-input">
-                        <label for="author">Author: </label>
-                        <?php
-                                
-                                echo $author;
-                            ?>
-                        
-                    </div>
-
-                    <div id="rating-input">
-                        <label for="rate">Rating: </label>
-                        
-                            <?php
-                                
-                                echo $rate;
-                            ?>
-                            
-                        
-                    </div>
-
-                    <div id="review-input">
-                        <label for="review">Review: </label>
-                        <?php
-                                
-                                echo $review;
-                            ?>
-                    </div>
-
-
-
-                    <!-- <div class="submit">
-                        <input class="submit_btn" type="submit" value="Submit">
-                    </div> -->
-                
-            </div>
-        </div>
-    </div>
-
     <?php
     // printing image and title data
-
-    $sql = "SELECT Name FROM Entries";
+    $sql = "SELECT * FROM Entries";
     $result = $link->query($sql);
 
     if ($result->num_rows > 0) {
     //output data of each row
-        while($row = $result->fetch_assoc()) {
+        while($row = $result->fetch_assoc()) { 
             echo "<table align='center';>
                     <tr>
                         <td><img src='img/script.png'/></td>
                     </tr>
                     <tr>
-                        <td><p id='view-entry-btn' onclick='viewentry()' style='text-align:center;'>Title: ".$row["Name"]."</p></td>
+                      
+                        <td><p style='text-align:center;'>Title: ".$row["Name"]."</p></td>
+                        <td align='center'>
+                            <a href='view.php?id=".$row["id"]."'>View</a>
+                        </td>
+                        <td align='center'>
+                            <a href='edit.php?id=".$row["id"]."'>Edit</a>
+                        </td>
+                        <td align='center'>
+                            <a href='delete.php?id=".$row["id"]."'>Delete</a>
+                        </td>
                     </tr>
                  </table>";
-        // echo "Name: " . $row["Name"];
         }
     } else {
         echo "0 results";
     }
     $link->close();
-    ?>  
+    ?>   
 
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="js/add-entry.js"></script>
-<script type="text/javascript" src="js/view-entry.js"></script>
 </body>
 </html>

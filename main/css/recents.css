@@ -9,6 +9,10 @@ body {
   background-color: white;
 }
 
+h1 {
+  text-align: center;
+}
+
 h3 {
   text-align: center;
   color: white;
@@ -130,7 +134,7 @@ input[type=submit] {
 
 /* 5 Star Rating CSS */
 .rate {
-  float: none;
+  float: center;
   width: 70%;
   height: 46px;
   padding: 0 0px;
