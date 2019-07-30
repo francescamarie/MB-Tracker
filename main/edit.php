@@ -63,7 +63,7 @@ $row = mysqli_fetch_assoc($result);
 							<input type="number" id="year_id" name="year_id" min="1000" max="2030" placeholder="<?php echo $row['Year_ID'];?>">
 						</div>
 
-						<p>If it's a book, add an author...</p>
+                    	<p>If it's a movie, put N/A...</p>
 						<div id="author-input" class="form-group">
 							<label for="author">Author: </label>
 							<input type="text" id="author" name="author" placeholder="<?php echo $row['Author'];?>">

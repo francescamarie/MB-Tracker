@@ -144,6 +144,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <span class="help-block"><?php echo $typeErr; ?></span>
                     </div>
+                    <br>
 
                     <div id="title-input" class="form-group <?php echo (!empty($titleErr)) ? 'has-error' : ''; ?>">
                         <label for="title">Title: </label>
@@ -209,7 +210,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <td><img src='img/script.png'/></td>
                     </tr>
                     <tr>
-                      
                         <td><p style='text-align:center;'>Title: ".$row["Name"]."</p></td>
                         <td align='center'>
                             <a href='view.php?id=".$row["id"]."'>View</a>

@@ -132,10 +132,14 @@ input[type=submit] {
   animation-duration: 0.4s
 }
 
+form[name="form"]{
+  margin: 50px 500px; 
+  width:700px;
+}
+
 /* 5 Star Rating CSS */
 .rate {
-  float: center;
-  width: 70%;
+  width: 40%;
   height: 46px;
   padding: 0 0px;
 }
