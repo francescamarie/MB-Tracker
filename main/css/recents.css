@@ -78,7 +78,7 @@ p {
 }
 
 h2 {
-  margin-inline-start: 1.5em;
+  margin-inline-start: 1.0em;
 }
 
 input[type=submit] {
@@ -134,7 +134,7 @@ input[type=submit] {
 }
 
 form[name="form"]{
-  margin: 50px 500px; 
+  margin: 50px 220px; 
   width:700px;
 }
 
@@ -190,3 +190,6 @@ form[name="form"]{
   margin-top:  6px;
 }
 
+.back {
+  padding: 10px;
+}

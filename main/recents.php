@@ -210,13 +210,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     <tr>
                         <td><p style='text-align:center;'>Title: ".$row["Name"]."</p></td>
                         <td align='center'>
-                            <a href='view.php?id=".$row["id"]."'>View</a>
+                            <a style='font-size: 18px;' href='view.php?id=".$row["id"]."'>View</a>
                         </td>
                         <td align='center'>
-                            <a href='edit.php?id=".$row["id"]."'>Edit</a>
+                            <a style='font-size: 18px;' href='edit.php?id=".$row["id"]."'>Edit</a>
                         </td>
                         <td align='center'>
-                            <a href='delete.php?id=".$row["id"]."'>Delete</a>
+                            <a style='font-size: 18px;' href='delete.php?id=".$row["id"]."'>Delete</a>
                         </td>
                     </tr>
                  </table>";

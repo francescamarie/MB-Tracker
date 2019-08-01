@@ -26,8 +26,20 @@ $row = mysqli_fetch_assoc($result);
 	<title>Update Entry</title>
 </head>
 <body>
+	<div class="sidenav">
+        <h3>Movie & Book Tracker</h3>
+        <h4>Welcome, <b><?php echo htmlspecialchars($_SESSION["username"]); ?></b>!</h4>
+        <a href="recents.php" id="recents" >User's Feed</a>
+        <a href="movies.php">Your Movies</a>
+        <a href="books.php">Your Books</a>
+        <a href="logout.php" id="settings">Sign Out</a>
+	</div>
+	<div class ="main">
+        <header>
+            <h2>Update Entry</h2> 
+        </header>
+    </div>
 	<div class="form">
-			<h1>Update Entry</h1>
 			<?php
 			$status = "";
 			if(isset($_POST['new']) && $_POST['new']==1)
@@ -42,9 +54,9 @@ $row = mysqli_fetch_assoc($result);
 				Year_ID='".$year_id."', Author='".$author."',
 				Rating='".$rate."', Review='".$review."' where id='".$id."'";
 				mysqli_query($link, $update) or die(mysqli_error());
-				$status = "Record Updated Successfully. </br></br>
+				$status = "Record Updated Successfully. <br><br>
 				<a href='recents.php'>View Recents</a>";
-				echo '<p style="color:#FF0000;">'.$status.'</p>';
+				echo '<p style="text-align:center; color:#505260;">'.$status.'</p>';
 
 			}else {
 				?>
@@ -55,18 +67,17 @@ $row = mysqli_fetch_assoc($result);
 
 						<div id="title-input" class="form-group">
 							<label for="title">Title: </label>
-							<input type="text" id="title" name="title" placeholder="<?php echo $row['Name'];?>" >
+							<input type="text" id="title" name="title" value="<?php echo $row['Name'];?>" >
 						</div>
 
 						<div id="year-input" class="form-group">
 							<label for="year_id">Year: </label>
-							<input type="number" id="year_id" name="year_id" min="1000" max="2030" placeholder="<?php echo $row['Year_ID'];?>">
+							<input type="number" id="year_id" name="year_id" min="1000" max="2030" value="<?php echo $row['Year_ID'];?>">
 						</div>
 
-                    	<p>If it's a movie, put N/A...</p>
 						<div id="author-input" class="form-group">
-							<label for="author">Author: </label>
-							<input type="text" id="author" name="author" placeholder="<?php echo $row['Author'];?>">
+							<label for="author">Author or Director: </label>
+							<input type="text" id="author" name="author" value="<?php echo $row['Author'];?>">
 						</div>
 
 						<div id="rating-input">
@@ -87,11 +98,11 @@ $row = mysqli_fetch_assoc($result);
 
 						<div id="review-input">
 							<label for="review">Review: </label>
-							<textarea type="text" id="review" name="review" placeholder="<?php echo $row['Review'];?>" ></textarea>
+							<textarea type="text" id="review" name="review"><?php echo $row['Review'];?></textarea>
 						</div>
 
 						
-								<p><input name="submit" type="submit" value="Update" /></p>
+								<p><input class="submit_btn" name="submit" type="submit" value="Update" /></p>
 							</form>
 						<?php } ?>
 					</div>

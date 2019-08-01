@@ -17,10 +17,10 @@ $result = mysqli_query($link, $query) or die ( mysqli_error());
     if ($result->num_rows > 0) {
     //output data of each row
         while($row = $result->fetch_assoc()) { 
-            echo "<p><a style='margin-left:170px;' href='javascript:history.back()''>< Back to recents</a></p>
-            	<table align='center';>
+            echo "<p><a style='margin-left:190px; font-size: 18px;' href='javascript:history.back()''>< Back</a></p>
+            	<table align='center'; style='padding-left:200px;'>
                     <tr>
-                        <td><img src='img/script.png'/></td>
+                        <td><img style='padding-left:50px;'src='img/script.png'/></td>
 
                     </tr>
                     <tr>
@@ -28,22 +28,22 @@ $result = mysqli_query($link, $query) or die ( mysqli_error());
                         <td><a href='delete.php?id=".$row["id"]."'>Delete</a></td>
                     </tr>
                     <tr>
-                      <td><p style='text-align:center;'>Title: ".$row["Name"]."</p></td>
+                      <td><p style='text-align:center; font-size: 25px; font-weight: bold;'>Title: ".$row["Name"]."</p></td>
 					</tr>
                     <tr>
-                    	<td><p style='text-align:center;'>Year: ".$row["Year_ID"]."</p></td>
+                    	<td><p style='text-align:center; font-size: 20px;'>Year: ".$row["Year_ID"]."</p></td>
                     </tr>
                     <tr>
-                    	<td><p style='text-align:center;'>Author (if book): ".$row["Author"]."</p></td>
+                    	<td><p style='text-align:center; font-size: 20px;'>Author or Director: ".$row["Author"]."</p></td>
                     </tr>
                     <tr>
-                    	<td><p style='text-align:center;'>Rating: ".$row["Rating"]."</p></td>
+                    	<td><p style='text-align:center; font-size: 20px;'>Rating: ".$row["Rating"]."</p></td>
                     </tr>
                     <tr>
-                    	<td><p style='text-align:center;'>Review: ".$row["Review"]."</p></td>
+                    	<td><p style='text-align:center; font-size: 20px;'>Review: ".$row["Review"]."</p></td>
                     </tr>
                     <tr>
-                    	<td><p style='text-align:center;'>Type: ".$row["Type"]."</p></td>
+                    	<td><p style='text-align:center; font-size: 20px;'>Type: ".$row["Type"]."</p></td>
                     </tr>
                  </table>";
         }
