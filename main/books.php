@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate author
     if(empty(trim($_POST["author"]))){
-        $authorErr = "Please enter an author.";
+        $authorErr = "Please enter an author or director.";
     } else{
         $author = trim($_POST["author"]);
     }
@@ -117,9 +117,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <div class ="main">
         <header>
-            <h2>Movies</h2> 
+            <h2>Books</h2> 
             <div class="no-entry">
-                <p class="btn btn-add" id="add-entry-btn" onclick="addentry()"><input type="submit" name="add" value="Add Entry"></p>
+                <p class="btn btn-add" id="add-entry-btn" onclick="addentry()"><input type="submit" name="add" value="Add Entry +"></p>
             </div>
         </header>
     </div>
@@ -128,18 +128,18 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="modal-content">
             <div class="modal-header">
                 <span style="float: right; margin: 15px;" class="add-close">&times;</span>
-                <h2>Add Entry</h2>
+                <h2 class="add_txt">Add Entry</h2>
             </div>
 
             <div class="modal-body">
                 <form id="movie_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
 
-                    <div id="type-input" style="text-align: center;">
+                    <div id="type-input">
                         <label for="book">Book</label>
-                        <input type="radio" id="book" name="type"  <?php if (isset($type) && $rate=="Book") echo "checked";?> value="Book"/>
+                        <input type="radio" id="book" name="type"  <?php if (isset($type) && $rate=="Book") echo "checked";?> value="Book" checked/>
                      
                         <label for="movie">Movie</label>
-                        <input type="radio" id="movie" name="type" <?php if (isset($type) && $rate=="Movie") echo "checked";?> value="Movie" checked/>
+                        <input type="radio" id="movie" name="type" <?php if (isset($type) && $rate=="Movie") echo "checked";?> value="Movie"/>
 
                         <span class="help-block"><?php echo $typeErr; ?></span>
                     </div>
@@ -156,7 +156,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <span class="help-block"><?php echo $yearErr; ?></span>
                     </div>
 
-                    <p>If it's a book, add an author...</p>
                     <div id="author-input" class="form-group <?php echo (!empty($authorErr)) ? 'has-error' : ''; ?>">
                         <label for="author">Author: </label>
                         <input type="text" id="author" name="author" placeholder="Author" value="<?php echo $author; ?>">

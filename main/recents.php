@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate author
     if(empty(trim($_POST["author"]))){
-        $authorErr = "Please enter an author.";
+        $authorErr = "Please enter an author or director.";
     } else{
         $author = trim($_POST["author"]);
     }
@@ -120,7 +120,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <header>
             <h2>Recents</h2> 
             <div class="no-entry">
-                <p class="btn btn-add" id="add-entry-btn" onclick="addentry()"><input type="submit" name="add" value="Add Entry"></p>
+                <p class="btn btn-add" id="add-entry-btn" onclick="addentry()"><input type="submit" name="add" value="Add Entry +"></p>
           </div>
         </header>
     </div>
@@ -129,13 +129,13 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="modal-content">
             <div class="modal-header">
                 <span style="float: right; margin: 15px;" class="add-close">&times;</span>
-                <h2>Add Entry</h2>
+                <h2 class="add_txt">Add Entry</h2>
             </div>
 
             <div class="modal-body">
                 <form id="movie_form" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"> 
 
-                    <div id="type-input" style="text-align: center;">
+                    <div id="type-input">
                         <label for="book">Book</label>
                         <input type="radio" id="book" name="type"  <?php if (isset($type) && $rate=="Book") echo "checked";?> value="Book"/>
                      
@@ -144,7 +144,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         <span class="help-block"><?php echo $typeErr; ?></span>
                     </div>
-                    <br>
 
                     <div id="title-input" class="form-group <?php echo (!empty($titleErr)) ? 'has-error' : ''; ?>">
                         <label for="title">Title: </label>
@@ -158,10 +157,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         <span class="help-block"><?php echo $yearErr; ?></span>
                     </div>
 
-                    <p>If it's a movie, put N/A...</p>
                     <div id="author-input" class="form-group <?php echo (!empty($authorErr)) ? 'has-error' : ''; ?>">
-                        <label for="author">Author: </label>
-                        <input type="text" id="author" name="author" placeholder="ex. N/A" value="<?php echo $author; ?>">
+                        <label for="author">Author or Director: </label>
+                        <input type="text" id="author" name="author" placeholder="" value="<?php echo $author; ?>">
                         <span class="help-block"><?php echo $authorErr; ?></span>
                     </div>
 
@@ -184,7 +182,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
 
                     <div id="review-input">
-                        <label for="review">Review: </label>
+                        <label for="review">Review: </label> <br>
                         <textarea type="text" id="review" name="review" placeholder="Write a review..."><?php echo $review;?></textarea>
                         <span class="help-block"><?php echo $reviewErr; ?></span>
                     </div>

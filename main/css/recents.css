@@ -3,7 +3,7 @@ html {
 }
 
 body {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   font-family: "PT Sans", sans-serif;
   color: #505260;
   background-color: white;
@@ -20,8 +20,9 @@ h3 {
 }
 
 h4 {
+  font-size: 1.3rem;
   text-align: center;
-  color: black;
+  color: white;
   margin-bottom: 3em;
 }
 
@@ -31,14 +32,14 @@ p {
 
 .sidenav {
   height: 100%;
-  width: 160px;
+  width: 180px;
   position: fixed;
   z-index: 1;
   top: 0;
   left: 0;
   background-color: #505260;
   overflow-x: hidden;
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 #recents {
@@ -83,7 +84,7 @@ h2 {
 input[type=submit] {
   padding: 16px 0;
   border-radius: 20px;
-  width: 10%;
+  width: 15%;
   cursor: pointer;
   background: #2f889a;
   color: #FFF;
@@ -137,6 +138,10 @@ form[name="form"]{
   width:700px;
 }
 
+.add_txt {
+  margin-inline-start: 0;
+}
+
 /* 5 Star Rating CSS */
 .rate {
   width: 40%;
@@ -174,4 +179,14 @@ form[name="form"]{
   color: #c59b08;
 }
 /* 5 Star Rating CSS */ 
+
+#review {
+  width: 96%;
+  display: block;
+  padding: 6px;
+}
+
+.submit_btn {
+  margin-top:  6px;
+}
 
