@@ -22,7 +22,7 @@ $row = mysqli_fetch_assoc($result);
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/recents.css">
-	<p><a href="javascript:history.back()">< Back</a></p>
+	<p><a style="margin-left:190px; font-size: 18px;" href="javascript:history.back()" >< Back</a></p>
 	<title>Update Entry</title>
 </head>
 <body>
@@ -83,17 +83,17 @@ $row = mysqli_fetch_assoc($result);
 						<div id="rating-input">
 							<label for="rate">Rating: </label>
 							<div class="rate" id="rate">
-								<label for="star5" title="text">5 stars</label>
-								<input type="radio" id="star5" name="rate" <?php if (isset($rate) && $rate=="5") echo $row['Rating'];?> value="5" />
-								<label for="star5" title="text">4 stars</label>
-								<input type="radio" id="star4" name="rate" <?php if (isset($rate) && $rate=="4") echo $row['Rating'];?> value="4" />
-								<label for="star4" title="text">4 stars</label>
-								<input type="radio" id="star3" name="rate" <?php if (isset($rate) && $rate=="3") echo $row['Rating'];?> value="3" />
-								<label for="star3" title="text">2 stars</label>
-								<input type="radio" id="star2" name="rate" <?php if (isset($rate) && $rate=="2") echo $row['Rating'];?> value="2" />
-								<label for="star2" title="text">1 stars</label>
-								<input type="radio" id="star1" name="rate" <?php if (isset($rate) && $rate=="1") echo $row['Rating'];?> value="1" />
-							</div>
+								<input type="radio" id="star5" name="rate" <?php if (isset($rate) && $rate=="5") echo "checked";?> value="5" />
+		                        <label for="star5" title="text">5 stars</label>
+		                        <input type="radio" id="star4" name="rate" <?php if (isset($rate) && $rate=="4") echo "checked";?> value="4" />
+		                        <label for="star4" title="text">4 stars</label>
+		                        <input type="radio" id="star3" name="rate" <?php if (isset($rate) && $rate=="3") echo "checked";?> value="3" />
+		                        <label for="star3" title="text">3 stars</label>
+		                        <input type="radio" id="star2" name="rate" <?php if (isset($rate) && $rate=="2") echo "checked";?> value="2" />
+		                        <label for="star2" title="text">2 stars</label>
+		                        <input type="radio" id="star1" name="rate" <?php if (isset($rate) && $rate=="1") echo "checked";?> value="1" />
+		                        <label for="star1" title="text">1 star</label>							
+                        	</div>
 						</div>
 
 						<div id="review-input">
